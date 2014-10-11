@@ -11,7 +11,7 @@
 		 '{' block '}' | 
 		 while exp '{' block '}' | 
 		 repeat block until exp | 
-		 if exp '{' block {elseif exp then block} [else block] '}' | 
+		 if exp '{' block {elseif exp '{' block} [else block] '}' | 
 		 for Name ‘=’ exp ‘,’ exp [‘,’ exp] '{'  block '}' | 
 		 for namelist in explist '{' block '}' | 
 		 function funcname funcbody | 
