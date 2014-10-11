@@ -8,12 +8,12 @@
 		 label | 
 		 break | 
 		 goto Name | 
-		 do block end | 
-		 while exp do block end | 
+		 '{' block '}' | 
+		 while exp '{' block '}' | 
 		 repeat block until exp | 
-		 if exp then block {elseif exp then block} [else block] end | 
-		 for Name ‘=’ exp ‘,’ exp [‘,’ exp] do block end | 
-		 for namelist in explist do block end | 
+		 if exp '{' block {elseif exp then block} [else block] '}' | 
+		 for Name ‘=’ exp ‘,’ exp [‘,’ exp] '{'  block '}' | 
+		 for namelist in explist '{' block '}' | 
 		 function funcname funcbody | 
 		 local function Name funcbody | 
 		 local namelist [‘=’ explist] 
@@ -34,7 +34,6 @@
 
 	exp ::=  nil | false | true | Number | String | ‘...’ | functiondef | 
 		 prefixexp | tableconstructor | exp binop exp | unop exp 
-
 	prefixexp ::= var | functioncall | ‘(’ exp ‘)’
 
 	functioncall ::=  prefixexp args | prefixexp ‘:’ Name args 
@@ -43,7 +42,7 @@
 
 	functiondef ::= function funcbody
 
-	funcbody ::= ‘(’ [parlist] ‘)’ block end
+	funcbody ::= ‘(’ [parlist] ‘)’ '{' block '}'
 
 	parlist ::= namelist [‘,’ ‘...’] | ‘...’
 
