@@ -799,12 +799,9 @@ static void body (LexState *ls, expdesc *e, int ismethod, int line) {
   }
   parlist(ls);
   checknext(ls, ')');
-  checknext(ls, '{');
   statlist(ls);
-  //new_fs.f->lastlinedefined = ls->linenumber;
-  //check_match(ls, TK_END, TK_FUNCTION, line);
-
-  checknext(ls, '{');
+  new_fs.f->lastlinedefined = ls->linenumber;
+  check_match(ls, TK_END, TK_FUNCTION, line);
   codeclosure(ls, e);
   close_func(ls);
 }
