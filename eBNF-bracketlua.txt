@@ -1,3 +1,4 @@
+
 	chunk ::= block
 
 	block ::= {stat} [retstat]
@@ -8,12 +9,12 @@
 		 label | 
 		 break | 
 		 goto Name | 
-		 '{' block '}' | 
-		 while exp '{' block '}' | 
+		 do block end | 
+		 while exp do block end | 
 		 repeat block until exp | 
-		 if exp '{' block {elseif exp '{' block} [else block] '}' | 
-		 for Name ‘=’ exp ‘,’ exp [‘,’ exp] '{'  block '}' | 
-		 for namelist in explist '{' block '}' | 
+		 if exp then block {elseif exp then block} [else block] end | 
+		 for Name ‘=’ exp ‘,’ exp [‘,’ exp] do block end | 
+		 for namelist in explist do block end | 
 		 function funcname funcbody | 
 		 local function Name funcbody | 
 		 local namelist [‘=’ explist] 
@@ -32,17 +33,18 @@
 
 	explist ::= exp {‘,’ exp}
 
-	exp ::=  nil | false | true | Number | String | ‘...’ | functiondef | 
+	exp ::=  nil | false | true | Numeral | LiteralString | ‘...’ | functiondef | 
 		 prefixexp | tableconstructor | exp binop exp | unop exp 
+
 	prefixexp ::= var | functioncall | ‘(’ exp ‘)’
 
 	functioncall ::=  prefixexp args | prefixexp ‘:’ Name args 
 
-	args ::=  ‘(’ [explist] ‘)’ | tableconstructor | String 
+	args ::=  ‘(’ [explist] ‘)’ | tableconstructor | LiteralString 
 
 	functiondef ::= function funcbody
 
-	funcbody ::= ‘(’ [parlist] ‘)’ '{' block '}'
+	funcbody ::= ‘(’ [parlist] ‘)’ block end
 
 	parlist ::= namelist [‘,’ ‘...’] | ‘...’
 
@@ -54,8 +56,11 @@
 
 	fieldsep ::= ‘,’ | ‘;’
 
-	binop ::= ‘+’ | ‘-’ | ‘*’ | ‘/’ | ‘^’ | ‘%’ | ‘..’ | 
+	binop ::=  ‘+’ | ‘-’ | ‘*’ | ‘/’ | ‘//’ | ‘^’ | ‘%’ | 
+		 ‘&’ | ‘~’ | ‘|’ | ‘>>’ | ‘<<’ | ‘..’ | 
 		 ‘<’ | ‘<=’ | ‘>’ | ‘>=’ | ‘==’ | ‘~=’ | 
 		 and | or
 
-	unop ::= ‘-’ | not | ‘#’
+	unop ::= ‘-’ | not | ‘#’ | ‘~’
+
+
